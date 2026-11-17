@@ -7,7 +7,7 @@ import yfinance as yf
 from train import BoostingResidual, prever_stacking  # Necessário para desserializar o joblib
 
 st.set_page_config(
-    page_title="Previsão de Ações AMZN | Projeto Integrador IV",
+    page_title="Previsão de Ações AMZN | Projeto Integrador V",
     page_icon="📈",
     layout="wide",
 )
@@ -41,7 +41,7 @@ df_recente = buscar_dados_recentes()
 features = artefatos["features"]
 
 # --- BARRA LATERAL ---
-st.sidebar.header("⚙️ Configurações de Previsão")
+st.sidebar.header("Configurações de Previsão")
 horizonte = st.sidebar.radio(
     "Horizonte Temporal:",
     options=[1, 90],
@@ -77,10 +77,10 @@ else:
     X_entrada = df_recente[features].iloc[[-1]]
 
 # --- CORPO PRINCIPAL ---
-st.title("📈 Previsão de Preços de Ações — Amazon (AMZN)")
+st.title("Previsão de Preços de Ações — Amazon (AMZN)")
 st.markdown(
-    f"**Projeto Integrador IV** • Referência de Mercado: Pregão de **{data_ref}** "
-    f"• Melhor modelo histórico para `t+{horizonte}`: **{melhor_modelo_padrao}**"
+    f"**Projeto Integrador V** • Referência de Mercado: Pregão de **{data_ref}** "
+    f"• 🏆 Melhor modelo histórico para `t+{horizonte}`: **{melhor_modelo_padrao}**"
 )
 
 valor_previsto = gerar_previsao(info_h["modelos"][modelo_selecionado], modelo_selecionado, X_entrada)
@@ -100,9 +100,9 @@ col4.metric("Coeficiente R² (Teste)", f"{metrica_atual['R2']:.4f}")
 st.divider()
 
 tab1, tab2, tab3 = st.tabs([
-    "📊 Histórico & Projeção",
-    "🏆 Comparativo de Modelos & Ensembles",
-    "🧪 Validação Temporal (Out-of-Sample)",
+    "Histórico & Projeção",
+    "Comparativo de Modelos & Ensembles",
+    "Validação Temporal (Out-of-Sample)",
 ])
 
 with tab1:
@@ -188,7 +188,7 @@ with tab3:
     )
     st.plotly_chart(fig_val, use_container_width=True)
 
-st.caption(
-    "⚠️ Estudo acadêmico desenvolvido no Projeto Integrador IV (Ciência de Dados). "
-    "Não constitui recomendação de compra ou venda de ativos financeiros."
-)
+# st.caption(
+#     "⚠️ Estudo acadêmico desenvolvido no Projeto Integrador IV (Ciência de Dados). "
+#     "Não constitui recomendação de compra ou venda de ativos financeiros."
+# )

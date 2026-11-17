@@ -73,7 +73,7 @@ Desenvolver, avaliar e colocar em produção um pipeline preditivo livre de vaza
 
 ### 1. Clonar o repositório e instalar as dependências
 ```bash
-git clone https://github.com/seu-usuario/seu-repositorio.git
+git clone https://github.com/laiscris/amazon-stock-forecasting.git
 cd seu-repositorio
 pip install -r requirements.txt
 ```
@@ -88,17 +88,3 @@ python train.py
 ```bash
 streamlit run app.py
 ```
-
----
-
-## ☁️ Deploy no Streamlit Cloud
-
-1. Suba os arquivos `app.py`, `train.py`, `requirements.txt` e `models/artefatos_amzn.joblib` para o seu repositório no GitHub.
-2. Acesse [share.streamlit.io](https://share.streamlit.io/) e conecte sua conta do GitHub.
-3. Clique em **New app**, selecione o repositório, defina `app.py` como arquivo principal (*Main file path*) e clique em **Deploy**.
-
----
-
-## ⚠️ Aviso Legal
-
-> Este projeto tem caráter estritamente acadêmico e experimental, desenvolvido no âmbito do **Projeto Integrador IV**. As previsões geradas pelos modelos não constituem recomendação de investimento ou aconselhamento financeiro.
