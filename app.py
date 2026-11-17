@@ -163,12 +163,48 @@ with tab2:
             "Data Alvo Previsão": data_alvo_str,
             "Previsão (US$)": round(prev_m, 2),
             "Variação (%)": f"{((prev_m - close_atual) / close_atual) * 100:+.2f}%",
-            "RMSE Teste (US$)": round(row["RMSE"], 4),
+            "⭐ RMSE Teste (US$)": round(row["RMSE"], 4),
             "MAE Teste (US$)": round(row["MAE"], 4),
             "R² Teste": round(row["R2"], 4),
         })
 
-    st.dataframe(pd.DataFrame(previsoes_todos), use_container_width=True, hide_index=True)
+    df_comp = pd.DataFrame(previsoes_todos)
+
+    # Destaca a coluna do RMSE (criterio principal) e ressalta o menor valor
+    df_estilizado = (
+        df_comp.style
+        .set_properties(
+            subset=["⭐ RMSE Teste (US$)"],
+            **{
+                "background-color": "rgba(0, 204, 150, 0.14)",
+                "font-weight": "bold",
+            },
+        )
+        .highlight_min(
+            subset=["⭐ RMSE Teste (US$)"],
+            color="rgba(0, 204, 150, 0.35)",
+        )
+        .format({
+            "Fechamento Base (US$)": "{:.2f}",
+            "Previsão (US$)": "{:.2f}",
+            "⭐ RMSE Teste (US$)": "{:.4f}",
+            "MAE Teste (US$)": "{:.4f}",
+            "R² Teste": "{:.4f}",
+        })
+    )
+
+    st.dataframe(
+        df_estilizado,
+        use_container_width=True,
+        hide_index=True,
+        column_config={
+            "⭐ RMSE Teste (US$)": st.column_config.NumberColumn(
+                "⭐ RMSE Teste (US$)",
+                help="Métrica principal usada para ranquear os modelos (quanto menor, melhor).",
+                format="US$ %.4f",
+            )
+        },
+    )
 
     if modelo_selecionado == "Boosting Residual" or "Boosting Residual" in df_metricas["Modelo"].values:
         st.info(f"**Sequência selecionada via TimeSeriesSplit no Boosting Residual:** `{info_h['sequencia_boosting']}`")
